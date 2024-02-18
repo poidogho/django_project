@@ -2,13 +2,13 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 import json
-from .services import getUsers, createUser, createCourse, getACourse, getCourses, create_course_videos, get_course_videos
+from .services import createUser, createCourse, getACourse, getCourses, create_course_videos, get_course_videos, get_user_videos
 from .serializers import CourseSerializer, VideoSerializer
 
 
 def dummy_view(request):
-    getUsers()
-    return HttpResponse("This is a dummy response!")
+    user_videos = get_user_videos(1)
+    return JsonResponse({"user_videos": list(user_videos)})
 
 @csrf_exempt
 @require_http_methods(["POST"])

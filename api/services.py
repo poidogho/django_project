@@ -1,5 +1,6 @@
 from django.core.exceptions import ObjectDoesNotExist
 from .models import User, Courses, Video
+from django.db.models import F
 
 def createUser():
     user_data = {
@@ -16,7 +17,7 @@ def createUser():
     new_user = User.objects.create_user(
         email=user_data["email"],
         firstName=user_data["firstName"],
-        password=user_data["password"],  # Ensure this is hashed appropriately by Django
+        password=user_data["password"],  
         lastName=user_data["lastName"],
         avatar=user_data["avatar"],
         tokens=user_data["tokens"],
@@ -27,6 +28,15 @@ def createUser():
 def getUsers():
     users = User.objects.all()
     print(users)
+
+def get_user_videos(user_id = 1):
+    queryset = User.objects.filter(id=user_id).values(
+    firstname=F('firstName'),
+    course_name=F('courses__name'),
+    video_topic=F('courses__video__topic')
+    ).distinct()
+
+    return queryset
 
 def createCourse(course):
     new_course = Courses.objects.create(**course)
