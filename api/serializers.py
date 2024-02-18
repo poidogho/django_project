@@ -34,3 +34,15 @@ class CourseSerializer(serializers.Serializer):
             raise serializers.ValidationError({"category": "Category is required"})
         
         return data
+    
+class VideoSerializer(serializers.Serializer):
+    course_id = serializers.CharField(max_length=255, required=False)
+    topic = serializers.CharField(max_length=255)
+
+    def validate(self, data):
+        # Validate 'name' field: must not contain 'test' and is required
+        topic = data.get('topic', '')
+        if not topic:
+            raise serializers.ValidationError({"topic": "Topic is required"})
+        
+        return data

@@ -6,5 +6,6 @@ urlpatterns = [
     path('users/', views.create_user, name='create user'),
     path('courses/', views.courses, name='courses'),
     # path('courses/', views.getCourses, name='get courses'),
-    path('courses/<int:course_id>/', views.getCourse, name='get a course')
+    path('courses/<int:course_id>/', views.getCourse, name='get a course'),
+    path('courses/<int:course_id>/videos', views.course_videos, name='course videos')
 ]

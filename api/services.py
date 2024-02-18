@@ -1,5 +1,5 @@
 from django.core.exceptions import ObjectDoesNotExist
-from .models import User, Courses
+from .models import User, Courses, Video
 
 def createUser():
     user_data = {
@@ -42,3 +42,12 @@ def getACourse(id):
 def getCourses():
     courses = Courses.objects.all()
     return courses
+
+def create_course_videos(videos_data):
+    video_objects = [Video(**video) for video in videos_data]
+    Video.objects.bulk_create(video_objects)
+    return video_objects
+
+def get_course_videos(course_id, offset, limit):
+    videos = Video.objects.filter(course_id=course_id)[offset:offset + limit]
+    return videos
