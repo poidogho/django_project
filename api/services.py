@@ -30,6 +30,13 @@ def getUsers():
     print(users)
 
 def get_user_videos(user_id = 1):
+    # select u.firstname , ac."name" , av.topic 
+    # from users u 
+    # left join api_courses ac 
+    #     on u.id = ac.user_id
+    # left join api_video av 
+    #     on ac.id = av.course_id 
+    # where u.id = 1;
     queryset = User.objects.filter(id=user_id).values(
     firstname=F('firstName'),
     course_name=F('courses__name'),
