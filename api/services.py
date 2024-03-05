@@ -68,3 +68,36 @@ def create_course_videos(videos_data):
 def get_course_videos(course_id, offset, limit):
     videos = Video.objects.filter(course_id=course_id)[offset:offset + limit]
     return videos
+
+def check_temp(num):
+    if num >= 70:
+        return "HOT"
+    elif num <= 69 or num >=40:
+        return "WARM"
+    else:
+        return "COLD"
+
+def dictt_comp():
+    # pseudocode = {key: expression for (key: value) in iterable}
+    cities_in_f = {"new york" : 32, "boston": 75, "Los angeles": 100, "chicago": 50}
+
+    # convert to celcius
+    cities_in_c = {key: (round ((value - 32)/ (5/9))) for (key, value) in cities_in_f.items()}
+    waether = {"new york" : "snowing", "boston": "sunny", "Los angeles": "sunny", "chicago": "cloudy"}
+    sunny_cities = {key: value for (key, value) in waether.items if value == "sunny"} 
+    waether_desc = {key: ("warm" if value >= 40 else "cold") for (key, value) in cities_in_f.items()}
+    waether_desc2 = {key: check_temp(value) for (key, value) in cities_in_f.items()}
+
+def list_comp():
+    # squares = []
+    # for i in range(1, 11):
+    #     squares.append(i * i)
+    # pseudocode = [expression for item in iterable if consition] or 
+    # [expression (if else) for item in iterable]
+
+    squares = [i*i for i in range(1, 11)]
+    student_scores = [100, 90, 80, 70, 60, 50, 40, 30, 0]
+    # using lambda
+    passed_students_lam = list(filter(lambda x: x >= 60, student_scores))
+    passed_students = [student for student in student_scores if student >= 60]
+    passed_desc = [student if student >= 60 else "failed" for student in student_scores]
